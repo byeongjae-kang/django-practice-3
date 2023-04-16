@@ -11,6 +11,14 @@
   <title>{% block title %}{% endblock title %}</title>
 </head>
 <body>
-  {% block content %}{% endblock content %}
+  <header id="main-header">
+    <nav><a id="main-logo" href="{% url 'meetups' %}">Django Meetups</a></nav>
+    <h1>{% block header_heading %}{% endblock header_heading %}</h1>
+    <p>{% block header_content %}{% endblock header_content %}</p>
+  </header>
+  
+  <main>
+    {% block content %}{% endblock content %}
+  </main>
 </body>
 </html>
