@@ -11,6 +11,3 @@ class Meetup(models.Model):
 
     def __str__(self):
         return f"{self.title} - {self.location}"
-
-    def save():
-        super().save()
