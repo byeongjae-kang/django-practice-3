@@ -2,12 +2,6 @@ from django.shortcuts import render
 from django.views import View
 from .models import Meetup
 
-MEETUP_DATA = [
-    {"title": "title", "location": "location", "slug": "title"},
-    {"title": "title", "location": "location", "slug": "title"},
-    {"title": "title", "location": "location", "slug": "title"},
-]
-
 
 # Create your views here.
 class MeetupsView(View):
