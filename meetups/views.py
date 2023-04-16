@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views import View
-from .models import Meetup
+from .models import Meetup, Participant
 from .forms import RegistrationForm
 
 
@@ -25,9 +25,9 @@ class MeetupDetailView(View):
     def post(self, request, slug):
         registration_form = RegistrationForm(request.POST)
         selected_meetup = Meetup.objects.get(slug=slug)
-        print(registration_form)
         if registration_form.is_valid():
-            participant = registration_form.save()
+            user_email = registration_form.cleaned_data["email"]
+            participant, _ = Participant.objects.get_or_create(email=user_email)
             selected_meetup.participant.add(participant)
             return redirect(reverse("success"))
 

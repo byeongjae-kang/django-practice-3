@@ -1,8 +1,5 @@
-from django.forms import ModelForm
-from .models import Participant
+from django import forms
 
 
-class RegistrationForm(ModelForm):
-    class Meta:
-        model = Participant
-        fields = ["email"]
+class RegistrationForm(forms.Form):
+    email = forms.EmailField(label="Your Email")
