@@ -1,7 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views import View
-from django.http import HttpResponseRedirect
 from .models import Meetup
 from .forms import RegistrationForm
 
@@ -30,5 +29,15 @@ class MeetupDetailView(View):
         if registration_form.is_valid():
             participant = registration_form.save()
             selected_meetup.participant.add(participant)
+            return redirect(reverse("success"))
 
-        return HttpResponseRedirect(reverse("meetup_detail", args=[slug]))
+        return render(
+            request,
+            "meetups/meetup_detail.html",
+            {"meetup": selected_meetup, "form": registration_form},
+        )
+
+
+class ConfirmRegistrationView(View):
+    def get(self, request):
+        return render(request, "meetups/registration_success.html")
