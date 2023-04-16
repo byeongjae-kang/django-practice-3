@@ -29,7 +29,7 @@ class MeetupDetailView(View):
             user_email = registration_form.cleaned_data["email"]
             participant, _ = Participant.objects.get_or_create(email=user_email)
             selected_meetup.participant.add(participant)
-            return redirect(reverse("success"))
+            return redirect(reverse("success", args=[slug]))
 
         return render(
             request,
@@ -39,5 +39,11 @@ class MeetupDetailView(View):
 
 
 class ConfirmRegistrationView(View):
-    def get(self, request):
-        return render(request, "meetups/registration_success.html")
+    def get(self, request, slug):
+        selected_meetup = Meetup.objects.get(slug=slug)
+
+        return render(
+            request,
+            "meetups/registration_success.html",
+            {"organizer_email": selected_meetup.organizer_email},
+        )
